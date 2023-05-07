@@ -8,7 +8,6 @@ def save_csv(data, titulo):
 
 
 url = 'https://dadosabertos.camara.leg.br/api/v2/proposicoes'
-#anos = [2018, 2019, 2020, 2021, 2022, 2023]  # Adicione aqui os anos desejados
 anos = list(range(2010, 2024))
 
 itens_por_pagina = 100
@@ -59,9 +58,7 @@ for ano in anos:
             autores_text += nome + ";" + str(codTipo) + ";" + tipoAutor + ";" + "\n"
             autores.append((nome, codTipo, tipoAutor))
 
-        #print(id_proposicao, ano, tipo, numero, assunto, autores, cod_situacao)
         projetos_text += str(id_proposicao) + ";" + str(ano) + ";" + str(tipo) + ";" + str(
             numero) + ";" + assunto + ";" + str(autores) + ";" + str(cod_situacao) + ";\n"
 
-#save_csv(autores_text, 'autores')
 save_csv(projetos_text, 'projetos')

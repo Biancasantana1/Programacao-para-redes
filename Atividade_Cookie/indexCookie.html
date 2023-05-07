@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Página de contagem</title>
+</head>
+<body>
+        <h1>Olá, {{username}}!</h1>
+        <p>Contador de requisições (Campo escondido): {{counter}}</p>
+        <form action="/" method="GET">
+            <input type="hidden" name="counter" value="{{counter}}" />
+            <input type="submit" value="Atualizar contador">
+        </form>
+        <p>Contador de requisições (Cookie): {{counter}}</p>
+        <p>Sua sessão expirará em {{remaining_time}} segundos. <a href="/logout">Sair</a></p>
+        <h1>Login</h1>
+        <form method="post" action="/login">
+            <label for="username">Nome de usuário:</label>
+            <input type="text" id="username" name="username" required>
+            <br>
+            <input type="submit" value="Login">
+        </form>
+</body>
+</html>

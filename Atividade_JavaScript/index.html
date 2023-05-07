@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Meu Blog</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<script type="application/javascript">
+	function send(event){
+        data = {
+            "message": document.getElementById("msg").value,
+            "author": document.getElementById("autor").value
+        };
+        var json_data = JSON.stringify(data);
+        var header = {
+            "Cotent-Type": "application/json"
+        };
+        var url = "https://script.google.com/macros/s/AKfycbzBn3sALe1rYjz7Ze-Ik7q9TEVP0I2V3XX7GNcecWP8NvCzGt4yO_RT1OlQp09TE9cU/exec";
+        fetch(url, {
+            method: "POST",
+            body: json_data,
+            headers: header,
+            mode: "no-cors"
+        }).then(function(response) {
+        return response.text();
+        }).catch(function(error) {
+        console.error(error);
+        });
+    }
+
+        var numRows = 0;
+
+    function loadTable() {
+        fetch('https://script.google.com/macros/s/AKfycbzBn3sALe1rYjz7Ze-Ik7q9TEVP0I2V3XX7GNcecWP8NvCzGt4yO_RT1OlQp09TE9cU/exec?tenho=' + numRows)
+            .then(response => response.json())
+            .then(data => {
+            const tableBody = document.getElementById('tabela-dados');
+            if (data.length > numRows) {
+                for (var i = data.length - 1; i >= numRows; i--) {
+                const newRow = `<tr><td>${data[i][0]}</td><td>${data[i][1]}</td><td>${data[i][2]}</td></tr>`;
+                tableBody.insertAdjacentHTML('afterbegin', newRow);
+                }
+                numRows = data.length;
+            }
+        });
+    }
+    window.onload = function() {
+        numRows = document.getElementById("tabela-dados").rows.length - 1;
+    };
+
+	</script>
+</head>
+<body>
+	<H1 align="center">Mensagem:</H1>
+	<HR><br>
+	<form>
+		<label>Mensagem:</label>
+		<input type="text" size="64" name="msg" id="msg"><br><br>
+		<label>Autor:</label>
+		<input type="text" size="64" name="autor" id="autor" > <br><br>
+		<button type="button" onclick="send()">Enviar</button>
+		<button type="button" onclick="loadTable()">Reload</button>
+	</form>
+	<br>
+	<table id="tabela-dados" >
+	</table>
+</body>
+</html>
